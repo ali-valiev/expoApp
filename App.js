@@ -12,6 +12,13 @@ export default function App() {
       { text: enteredGoal, id: Math.random().toString() },
     ]);
   }
+
+  function deleteGoalHandler(id) {
+    setGoalsList((currentGoalsList) => {
+      return currentGoalsList.filter((goal) => goal.id !== id);
+    });
+  }
+
   return (
     <View style={styles.mainContainer}>
       <GoalInput onAddGoal={addGoalHandler} />
@@ -19,7 +26,13 @@ export default function App() {
         <FlatList
           data={goalsList}
           renderItem={(itemData) => {
-            return <GoalItem text={itemData.item.text} />;
+            return (
+              <GoalItem
+                text={itemData.item.text}
+                id={itemData.item.id}
+                deleteGoal={deleteGoalHandler}
+              />
+            );
           }}
           keyExtractor={(item, index) => {
             return item.id;
@@ -43,3 +56,4 @@ const styles = StyleSheet.create({
     flex: 5,
   },
 });
+eli maldi StyleSheet
