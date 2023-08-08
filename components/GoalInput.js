@@ -1,4 +1,11 @@
-import { StyleSheet, View, TextInput, Button, Modal } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Button,
+  Modal,
+  ToastAndroid,
+} from "react-native";
 import { useState } from "react";
 
 export default function GoalInput(props) {
@@ -13,6 +20,8 @@ export default function GoalInput(props) {
       props.onAddGoal(enteredGoal);
       setEnteredGoal("");
       props.toggleModal();
+    } else {
+      ToastAndroid.show("Please enter a goal", ToastAndroid.SHORT);
     }
   }
 
@@ -23,14 +32,22 @@ export default function GoalInput(props) {
           <TextInput
             style={styles.goalInput}
             placeholder="Set a new goal:"
+            placeholderTextColor="#EDF2F4"
             onChangeText={goalInputHandler}
             value={enteredGoal}
           />
-          <Button
-            title="Add Goal"
-            onPress={addGoalHandler}
-            style={styles.addGoalButton}
-          />
+          <View style={styles.buttonsContainer}>
+            <Button
+              title="Back to Goals"
+              onPress={props.toggleModal}
+              color={"#8D99AE"}
+            />
+            <Button
+              title="Add Goal"
+              onPress={addGoalHandler}
+              color={"#8D99AE"}
+            />
+          </View>
         </View>
       </View>
     </Modal>
@@ -39,29 +56,30 @@ export default function GoalInput(props) {
 
 const styles = StyleSheet.create({
   mainContainer: {
+    backgroundColor: "#2B2D42",
     flex: 1,
-    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    margin: 8,
-    borderBottomWidth: 2,
-    borderBottomColor: "#cccccc",
   },
 
   inputContainer: {
-    width: "95%",
+    width: "100%",
+  },
+
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: "20%",
+    marginVertical: "2%",
   },
 
   goalInput: {
     borderWidth: 1,
-    borderColor: "#cccccc",
+    borderColor: "#EDF2F4",
     borderRadius: 5,
-    width: "85%",
+    color: "#EDF2F4",
+    width: "90%",
     padding: 5,
-    marginRight: 10,
-  },
-
-  addGoalButton: {
-    width: "30%",
+    marginHorizontal: "5%",
   },
 });
