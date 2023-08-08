@@ -1,10 +1,15 @@
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, Button } from "react-native";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 import { useState } from "react";
 
 export default function App() {
+  const [inputVisible, setInputVisible] = useState(false);
   const [goalsList, setGoalsList] = useState([]);
+
+  function toggleInputModal() {
+    setInputVisible(!inputVisible);
+  }
 
   function addGoalHandler(enteredGoal) {
     setGoalsList((currentGoalsList) => [
@@ -21,7 +26,16 @@ export default function App() {
 
   return (
     <View style={styles.mainContainer}>
-      <GoalInput onAddGoal={addGoalHandler} />
+      <Button
+        title="Add a new goal"
+        onPress={toggleInputModal}
+        color="#7373cc"
+      />
+      <GoalInput
+        onAddGoal={addGoalHandler}
+        toggleModal={toggleInputModal}
+        visible={inputVisible}
+      />
       <View style={styles.goalsContainer}>
         <FlatList
           data={goalsList}
