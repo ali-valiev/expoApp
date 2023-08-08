@@ -56,4 +56,3 @@ const styles = StyleSheet.create({
     flex: 5,
   },
 });
-eli maldi StyleSheet
